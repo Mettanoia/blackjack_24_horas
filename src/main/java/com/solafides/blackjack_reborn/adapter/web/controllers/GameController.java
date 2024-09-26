@@ -58,10 +58,10 @@ public class GameController {
 
         return deleteGame.deleteGame(Long.valueOf(request.pathVariable("id")))
 
-                .then(noContent().build())
+                .then(noContent().build());
 
                 // Captures any error
-                .onErrorResume(ExceptionHandler::handleException);
+                //.onErrorResume(ExceptionHandler::handleException);
 
     }
 
@@ -69,20 +69,20 @@ public class GameController {
 
         return request.bodyToMono(EditPlayerNameRequest.class)
                 .flatMap(editPlayerNameRequest -> editPlayerName.editPlayerName(Long.valueOf(request.pathVariable("id")), editPlayerNameRequest.newPlayerName()))
-                .flatMap(playerDetailsDto -> ok().body(just(playerDetailsDto), PlayerDetailsDto.class))
+                .flatMap(playerDetailsDto -> ok().body(just(playerDetailsDto), PlayerDetailsDto.class));
 
                 // Captures any error
-                .onErrorResume(ExceptionHandler::handleException);
+                //.onErrorResume(ExceptionHandler::handleException);
 
     }
 
     private Mono<ServerResponse> getGameDetails(ServerRequest request) {
 
         return gameDetails.getGameDetails(Long.valueOf(request.pathVariable("id")))
-                .flatMap(gameDetailsDto -> ok().body(just(gameDetailsDto), GameDetailsDto.class))
+                .flatMap(gameDetailsDto -> ok().body(just(gameDetailsDto), GameDetailsDto.class));
 
                 // Captures any error
-                .onErrorResume(ExceptionHandler::handleException);
+                //.onErrorResume(ExceptionHandler::handleException);
 
     }
 
@@ -94,10 +94,10 @@ public class GameController {
                 .flatMap(gameActionRequest -> playAction.executeAction(gameActionRequest, Long.valueOf(request.pathVariable("id"))))
                 .flatMap(game -> ok()
                         .contentType(APPLICATION_JSON)
-                        .bodyValue(game))
+                        .bodyValue(game));
 
                 // Captures any error
-                .onErrorResume(ExceptionHandler::handleException);
+                //.onErrorResume(ExceptionHandler::handleException);
 
     }
 
@@ -105,10 +105,10 @@ public class GameController {
 
         return request.bodyToMono(GameCreationRequest.class)
                 .flatMap(gameCreation::createGame)
-                .flatMap(this::buildCreatedResponse)
+                .flatMap(this::buildCreatedResponse);
 
                 // Captures any error
-                .onErrorResume(ExceptionHandler::handleException);
+                //.onErrorResume(ExceptionHandler::handleException);
 
     }
 
